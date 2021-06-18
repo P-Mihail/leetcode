@@ -20,8 +20,9 @@
 # 0 <= arr[i] <= 9
 
 
-from typing import List, Deque
+from typing import List
 
+# from typing import Deque
 # import collections
 
 
@@ -44,13 +45,42 @@ class Solution(object):
     #         arr[i] = q.pop()
     #         i += 1
 
+    # def duplicateZeros(self, arr: List[int]) -> None:
+    #     # inplace modifications
+    #     i = 0
+    #     while i < len(arr):
+    #         if arr[i] == 0:
+    #             arr.insert(i, 0)
+    #             arr.pop()
+    #             i += 2
+    #         else:
+    #             i += 1
+
     def duplicateZeros(self, arr: List[int]) -> None:
-        # inplace modifications
-        i = 0
-        while i < len(arr):
-            if arr[i] == 0:
-                arr.insert(i, 0)
-                arr.pop()
-                i += 2
-            else:
-                i += 1
+        # time complexity: O(n)
+        # space complexity: O(1)
+        count_zeros = 0
+        is_edge_case = False  # The sequence will end with one zero
+
+        for i, num in enumerate(arr):
+            if i + count_zeros >= len(arr):
+                break
+
+            if num == 0:
+                if i + count_zeros == len(arr) - 1:
+                    is_edge_case = True
+                count_zeros += 1
+
+        from_pointer = len(arr) - 1 - count_zeros
+        to_pointer = len(arr) - 1
+        if is_edge_case:
+            arr[-1] = 0
+            to_pointer -= 1
+
+        while from_pointer < to_pointer:
+            if arr[from_pointer] == 0:
+                arr[to_pointer] = 0
+                to_pointer -= 1
+            arr[to_pointer] = arr[from_pointer]
+            to_pointer -= 1
+            from_pointer -= 1
