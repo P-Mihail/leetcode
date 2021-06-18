@@ -21,7 +21,8 @@
 
 
 from typing import List, Deque
-import collections
+
+# import collections
 
 
 class Solution(object):
@@ -31,14 +32,25 @@ class Solution(object):
     #     for i in range(len(arr)):
     #         arr[i] = int(tmp[i])
 
-    def duplicateZeros(self, arr: List[int]) -> None:
-        # additional deque
-        q: Deque[int] = collections.deque()
+    # def duplicateZeros(self, arr: List[int]) -> None:
+    #     # additional deque
+    #     q: Deque[int] = collections.deque()
+    #
+    #     i = 0
+    #     while i < len(arr):
+    #         q.appendleft(arr[i])
+    #         if arr[i] == 0:
+    #             q.appendleft(0)
+    #         arr[i] = q.pop()
+    #         i += 1
 
+    def duplicateZeros(self, arr: List[int]) -> None:
+        # inplace modifications
         i = 0
         while i < len(arr):
-            q.appendleft(arr[i])
             if arr[i] == 0:
-                q.appendleft(0)
-            arr[i] = q.pop()
-            i += 1
+                arr.insert(i, 0)
+                arr.pop()
+                i += 2
+            else:
+                i += 1
