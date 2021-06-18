@@ -20,11 +20,25 @@
 # 0 <= arr[i] <= 9
 
 
-from typing import List
+from typing import List, Deque
+import collections
 
 
 class Solution(object):
+    # def duplicateZeros(self, arr: List[int]) -> None:
+    #     # simple way
+    #     tmp = "".join(str(x) for x in arr).replace("0", "00")
+    #     for i in range(len(arr)):
+    #         arr[i] = int(tmp[i])
+
     def duplicateZeros(self, arr: List[int]) -> None:
-        tmp = "".join(str(x) for x in arr).replace("0", "00")
-        for i in range(len(arr)):
-            arr[i] = int(tmp[i])
+        # additional deque
+        q: Deque[int] = collections.deque()
+
+        i = 0
+        while i < len(arr):
+            q.appendleft(arr[i])
+            if arr[i] == 0:
+                q.appendleft(0)
+            arr[i] = q.pop()
+            i += 1
