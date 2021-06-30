@@ -54,6 +54,9 @@ class Solution(object):
     def lowestCommonAncestor(
         self, root: TreeNode, p: TreeNode, q: TreeNode
     ) -> TreeNode:
+        # iterative
+        # time complexity O(n) n is the number of nodes
+        # space complexity O(n)
         stack = [root]
         parent: Dict[TreeNode, Optional[TreeNode]] = {root: None}
 

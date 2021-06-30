@@ -52,6 +52,10 @@ class Solution:
     def lowestCommonAncestor(
         self, root: "TreeNode", p: "TreeNode", q: "TreeNode"
     ) -> "TreeNode":
+        # iterative
+        # time complexity O(n) n is the number of nodes in the BST. In the worst case we might be visiting all the nodes
+        # of the BST.
+        # space complexity O(1)
         ancestor = root
         if p.val < q.val:
             a, b = p.val, q.val
