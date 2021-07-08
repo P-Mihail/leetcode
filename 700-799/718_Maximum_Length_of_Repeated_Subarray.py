@@ -24,6 +24,8 @@ from typing import List
 
 class Solution:
     def findLength(self, nums1: List[int], nums2: List[int]) -> int:
+        # time complexity O(m * n)
+        # space complexity O(m * n)
         mem = [[0] * (len(nums2) + 1) for _ in range(len(nums1) + 1)]
 
         for i in range(len(nums1) - 1, -1, -1):
