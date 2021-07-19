@@ -49,23 +49,40 @@ class TreeNode:
 
 
 class Solution:
-    def lowestCommonAncestor(
-        self, root: "TreeNode", p: "TreeNode", q: "TreeNode"
-    ) -> "TreeNode":
+    # def lowestCommonAncestor(
+    #     self, root: "TreeNode", p: "TreeNode", q: "TreeNode"
+    # ) -> "TreeNode":
+    #     # iterative
+    #     # time complexity O(n) n is the number of nodes in the BST. In the worst case we might be visiting all the nodes
+    #     # of the BST.
+    #     # space complexity O(1)
+    #     ancestor = root
+    #     if p.val < q.val:
+    #         a, b = p.val, q.val
+    #     else:
+    #         a, b = q.val, p.val
+    #
+    #     while ancestor.val > b or ancestor.val < a:
+    #         if b < ancestor.val:
+    #             ancestor = ancestor.left
+    #         else:
+    #             ancestor = ancestor.right
+    #
+    #     return ancestor
+
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         # iterative
-        # time complexity O(n) n is the number of nodes in the BST. In the worst case we might be visiting all the nodes
-        # of the BST.
+        # time complexity O(n)
         # space complexity O(1)
-        ancestor = root
-        if p.val < q.val:
-            a, b = p.val, q.val
-        else:
-            a, b = q.val, p.val
+        minval = min(p.val, q.val)
+        maxval = max(p.val, q.val)
 
-        while ancestor.val > b or ancestor.val < a:
-            if b < ancestor.val:
-                ancestor = ancestor.left
+        node = root
+
+        while node:
+            if node.val > maxval:
+                node = node.left
+            elif node.val < minval:
+                node = node.right
             else:
-                ancestor = ancestor.right
-
-        return ancestor
+                return node
