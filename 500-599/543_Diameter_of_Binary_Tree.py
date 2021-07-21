@@ -26,6 +26,9 @@
 # -100 <= Node.val <= 100
 
 
+from typing import Dict
+
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -33,26 +36,48 @@ class TreeNode:
         self.right = right
 
 
+# class Solution:
+#     # recursive
+#     class Height:
+#         def __init__(self):
+#             self.h = 0
+#
+#     def diameterOfBinaryTree(self, root: TreeNode, height=None) -> int:
+#         if height is None:
+#             height = self.Height()
+#
+#         if root is None:
+#             height.h = 0
+#             return 0
+#
+#         lh = self.Height()
+#         rh = self.Height()
+#
+#         lr = self.diameterOfBinaryTree(root.left, lh)
+#         rr = self.diameterOfBinaryTree(root.right, rh)
+#
+#         height.h = max(lh.h, rh.h) + 1
+#
+#         return max(lh.h + rh.h, lr, rr)
+
+
 class Solution:
-    # recursive
-    class Height:
-        def __init__(self):
-            self.h = 0
+    # iterative
+    def diameterOfBinaryTree(self, root: TreeNode) -> int:
+        ans = 0
+        hm: Dict[TreeNode, int] = {}
+        stack = [(root, False)]
 
-    def diameterOfBinaryTree(self, root: TreeNode, height=None) -> int:
-        if height is None:
-            height = self.Height()
-
-        if root is None:
-            height.h = 0
-            return 0
-
-        lh = self.Height()
-        rh = self.Height()
-
-        lr = self.diameterOfBinaryTree(root.left, lh)
-        rr = self.diameterOfBinaryTree(root.right, rh)
-
-        height.h = max(lh.h, rh.h) + 1
-
-        return max(lh.h + rh.h, lr, rr)
+        while stack:
+            node, visited = stack.pop()
+            if node:
+                if visited:
+                    lh = 0 if node.left is None else hm.pop(node.left)
+                    rh = 0 if node.right is None else hm.pop(node.right)
+                    ans = max(ans, lh + rh)
+                    hm[node] = max(lh, rh) + 1
+                else:
+                    stack.append((node, True))
+                    stack.append((node.left, False))
+                    stack.append((node.right, False))
+        return ans
