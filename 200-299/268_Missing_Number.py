@@ -38,5 +38,17 @@ from typing import List
 
 
 class Solution:
+    # def missingNumber(self, nums: List[int]) -> int:
+    #     # time complexity O(n)
+    #     # space complexity O(1)
+    #     return len(nums) * (len(nums) + 1) // 2 - sum(nums)
+
     def missingNumber(self, nums: List[int]) -> int:
-        return len(nums) * (len(nums) + 1) // 2 - sum(nums)
+        # time complexity O(n)
+        # space complexity O(1)
+        missing = len(nums)
+
+        for i, n in enumerate(nums):
+            missing ^= i ^ n
+
+        return missing
