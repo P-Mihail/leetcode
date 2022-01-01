@@ -23,14 +23,26 @@
 # The answer is guaranteed to fit within a 32-bit integer, ie. answer <= 2^31 - 1.
 
 
+# class Solution:
+#     def tribonacci(self, n: int) -> int:
+#         tn = [0, 1, 1]
+
+#         if n < len(tn) - 1:
+#             return tn[n]
+
+#         for i in range(3, n + 1):
+#             tn.append(tn[i - 3] + tn[i - 2] + tn[i - 1])
+
+#         return tn[-1]
+
+
 class Solution:
+    def __init__(self):
+        self.cache = [0, 1, 1]
+
     def tribonacci(self, n: int) -> int:
-        tn = [0, 1, 1]
+        while len(self.cache) <= n:
+            self.cache.append(self.cache[-3] + self.cache[-2] + self.cache[-1])
 
-        if n < len(tn) - 1:
-            return tn[n]
+        return self.cache[n]
 
-        for i in range(3, n + 1):
-            tn.append(tn[i - 3] + tn[i - 2] + tn[i - 1])
-
-        return tn[-1]
