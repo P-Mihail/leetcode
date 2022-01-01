@@ -28,6 +28,9 @@
 # 0 <= cCenter < cols
 
 
+from typing import List
+
+
 class Solution:
     def allCellsDistOrder(
         self, rows: int, cols: int, rCenter: int, cCenter: int
