@@ -22,16 +22,30 @@
 
 
 from typing import Dict, List
-from collections import defaultdict
+
+# from collections import defaultdict
 
 
 class Solution(object):
+    # def numPairsDivisibleBy60(self, time: List[int]) -> int:
+    #     # time complexity O(n), 1 pass
+    #     # space comlexity O(1)
+    #     ht: Dict[int, int] = defaultdict(int)
+    #     count = 0
+    #     for song in time:
+    #         count += ht[-song % 60]
+    #         ht[song % 60] += 1
+    #     return count
+
     def numPairsDivisibleBy60(self, time: List[int]) -> int:
         # time complexity O(n), 1 pass
         # space comlexity O(1)
-        ht: Dict[int, int] = defaultdict(int)
-        count = 0
-        for song in time:
-            count += ht[-song % 60]
-            ht[song % 60] += 1
-        return count
+        cache = [0] * 60
+        ans = 0
+
+        for t in time:
+            ans += cache[-t % 60]
+            cache[t % 60] += 1
+
+        return ans
+
