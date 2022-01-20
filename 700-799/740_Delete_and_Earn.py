@@ -30,16 +30,40 @@ from typing import List
 
 
 class Solution:
+    # def deleteAndEarn(self, nums: List[int]) -> int:
+    #     # Time Complexity O(n log n)
+    #     # Space Complexity O(1)
+    #     c = Counter(nums)
+    #     pn = None
+    #     pe, pd = 0, 0
+
+    #     for n in sorted(c):
+    #         if pn == n - 1:
+    #             pe, pd = pd + n * c[n], max(pe, pd)
+    #         else:
+    #             pe, pd = max(pe, pd) + n * c[n], max(pe, pd)
+    #         pn = n
+
+    #     return max(pe, pd)
+
     def deleteAndEarn(self, nums: List[int]) -> int:
+        # Time Complexity O(n log n)
+        # Space Complexity O(n)
+        def dp(i):
+            n = s_nums[i]
+            if i == 0:
+                mem[i] = n * c[n], 0
+            if i not in mem:
+                if s_nums[i - 1] == n - 1:
+                    mem[i] = n * c[n] + dp(i - 1)[1], max(dp(i - 1))
+                else:
+                    mem[i] = n * c[n] + max(dp(i - 1)), max(dp(i - 1))
+
+            return mem[i]
+
         c = Counter(nums)
-        pn = None
-        pe, pd = 0, 0
+        s_nums = sorted(c.keys())
 
-        for n in sorted(c):
-            if pn == n - 1:
-                pe, pd = pd + n * c[n], max(pe, pd)
-            else:
-                pe, pd = max(pe, pd) + n * c[n], max(pe, pd)
-            pn = n
+        mem = {}
 
-        return max(pe, pd)
+        return max(dp(len(s_nums) - 1))
