@@ -15,6 +15,7 @@
 
 
 from typing import List
+from math import floor, log10
 
 
 class Solution:
